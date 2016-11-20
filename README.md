@@ -1,2 +1,0 @@
-# JAVA
-Java Programs Created
