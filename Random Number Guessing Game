@@ -1,0 +1,116 @@
+/*
+Name: Fuat Klobocista
+Description: Random number guessing game 
+*/
+import java.util.Scanner;
+import java.util.Random;
+
+public class RandomNumberGuessingGame {
+	static Scanner myScanner = new Scanner(System.in);
+
+	public static void main(String[] args) {
+		   	       	        	
+		Startmenu();	
+    }
+		public static boolean Startmenu(){
+            System.out.print("Random Number Guessing Game! Press Y to start / N to quit:");
+            Scanner scan = new Scanner(System.in);
+            String start = scan.next();
+            
+            if (start.charAt(0) == 'y' || start.charAt(0) == 'Y') {
+            	System.out.println();             
+                RandGuess();
+            } else if (start.charAt(0) == 'n' || start.charAt(0) == 'N' ){
+                System.out.println("Good Bye! Go play your call of duty");
+            }
+                else {
+                  System.out.println("You entered an invalid input. "); 
+                  return Startmenu();                
+                }
+       return false;
+            }		
+	
+	public static void RandGuess() {
+		  int MinNumber = 0;		
+		  int MaxNumber = 0;		  
+		  String MinString = "";
+		  String MaxString = "";
+	      Scanner keyboard = new Scanner(System.in);
+	      
+	        	      	       	       
+	        try {
+	            System.out.print("Enter a Minimum Number Limit: ");
+		        MinString = myScanner.next();
+		        MinNumber = Integer.parseInt(MinString.trim());		        	           
+	        } catch(Exception e) {
+	            System.out.print("please enter integers only");
+	            System.out.println();
+	            RandGuess();
+	        }
+	        try {
+	            System.out.print("Enter a Max Number Limit: ");
+		        MaxString = myScanner.next();
+		        MaxNumber = Integer.parseInt(MaxString.trim());		        	           
+	        } catch(Exception e) {
+	            System.out.print("please enter integers only");
+	            System.out.println();
+	            RandGuess();
+	        }
+	        
+	        
+	        if( MinNumber>MaxNumber){
+	        	System.out.print("Your minimum is greater than your maximum... please try it again ");
+	        	System.out.println();	        	
+	        	RandGuess();
+	        } else if (MaxNumber<MinNumber){
+	        	System.out.print("Your maximum is lower than you minimum... please try again "); 
+	        	System.out.println();
+	        	RandGuess();
+	        	}
+	              	        	        	        
+		Random r = new Random();
+		int randomint = r.nextInt(MaxNumber-MinNumber) + MinNumber;
+		int inputNumber = 0;
+		boolean numberError = false;
+		String inputString = "";
+
+		do {
+			try{
+				System.out.print("Enter a guess between " + MinNumber + " and " + MaxNumber + ":");
+				inputString = myScanner.next();
+				inputNumber = Integer.parseInt(inputString.trim());
+				if (inputNumber < randomint){
+					System.out.println("Your Number is too low, try again");
+					}
+				  			 				  
+				 else if (inputNumber > randomint){
+					System.out.println("Your Number is too high, try again");
+					
+				} else {
+					System.out.println("Your guess is correct. The number was:" + randomint);
+					
+				}
+			} catch (Exception e){
+				System.out.println("The input you entered: " + inputString + "is not valid, try again");
+			}
+		}while(inputNumber != randomint);
+		resetgame();
+	}		
+		public static boolean resetgame(){
+	        while (true) {	        	
+	            System.out.println("Do you want to play again? Type Y or N: ");
+
+	            Scanner scan = new Scanner(System.in);
+	            String reset = scan.next();
+
+	            if (reset.charAt(0) == 'y' || reset.charAt(0) == 'Y') {	            	
+	                System.out.println("*Random number has been reset*");
+	                RandGuess();
+	            } else if (reset.charAt(0) == 'n' || reset.charAt(0) == 'N'){
+	                System.out.println("Good Bye & Thank You for Playing!");
+	                break;
+	            }
+	        }
+			return false;
+	}
+}
