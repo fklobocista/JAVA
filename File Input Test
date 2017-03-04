@@ -52,7 +52,7 @@ public class FileInputTest
         }
          
         String line1 = Files.readAllLines(Paths.get("out.txt")).get(1);
-		String line2 = Files.readAllLines(Paths.get("out.txt")).get(1);
+	String line2 = Files.readAllLines(Paths.get("out.txt")).get(1);
 	
     }
 }
