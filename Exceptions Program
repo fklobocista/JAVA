@@ -1,0 +1,63 @@
+/*
+Name: Fuat Klobocista
+Description: Java Exceptions Test (Dating Program)
+*/
+import java.util.*;
+
+public class ExceptionsProgram {
+	
+	public static void main(String[] args)
+	{
+		System.out.println("Fuat's Dating Program");
+		System.out.println("To begin, I'll need to collect some personal data.");
+	
+		boolean nameError = false;
+		
+		do {
+			try {
+				System.out.print("Enter your first name: ");
+				Scanner scanner = new Scanner(System.in);
+				String firstName = scanner.nextLine();
+				nameError = false;
+				if (firstName.equals("")){
+						
+						System.out.print("Enter your last name: ");
+						String lastName = scanner.nextLine();
+						System.out.print("Enter your DOB: ");
+						String dob = scanner.nextLine();
+						System.out.print("Enter your favorite color: ");
+						String fav_color = scanner.nextLine();
+						System.out.print("Enter your zip code: ");
+						String zip = scanner.nextLine();
+						System.out.print("How many children do you have? ");
+						int numChildren = scanner.nextInt();
+						System.out.println("Processing...");
+						int numMatches = 2 + (int)(Math.random() * ((100 - 2) + 1));
+						System.out.println("Congratulations!  We found " + numMatches + " compatible matches in your area!");
+						throw new Exception("Exception: You did not enter anything in first name");
+				}
+				
+			} catch(Exception e) {
+				System.out.println (e.getMessage());
+				System.err.print("ERROR: Blank first name - You ran into the exception! Good Job");
+				System.exit(0);
+			}
+		
+		} while (nameError == true );  	
+		Scanner scanner1 = new Scanner(System.in);
+		System.out.print("Enter your last name: ");
+		String lastName = scanner1.nextLine();
+		System.out.print("Enter your DOB: ");
+		String dob = scanner1.nextLine();
+		System.out.print("Enter your favorite color: ");
+		String fav_color = scanner1.nextLine();
+		System.out.print("Enter your zip code: ");
+		String zip = scanner1.nextLine();
+		System.out.print("How many children do you have? ");
+		int numChildren = scanner1.nextInt();
+		System.out.println("Processing...");
+		int numMatches = 2 + (int)(Math.random() * ((100 - 2) + 1));
+		System.out.println("Congratulations!  We found " + numMatches + " compatible matches in your area!");
+		
+	}
+}
