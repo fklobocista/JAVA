@@ -1,0 +1,37 @@
+/**
+Name: Fuat Klobocista
+Description: Create a division grid - print even, odd, and spaces accordingly. 
+*/
+import java.util.Scanner;
+public class EvenOdd{
+        
+        public static void main(String[] args) 
+        {
+            int maxgridnum;             // Prompt user to enter a max
+            System.out.print("Enter a max number that you want for the grid: ");
+            Scanner in = new Scanner(System.in);
+            maxgridnum = in.nextInt(); 
+            System.out.print("     ");
+                       
+        for (int i=1; i<= maxgridnum; i++) {    //top row
+            System.out.print(i+"    ");
+        }
+        
+        System.out.println();
+        for (int x = 1; x <= maxgridnum; x++) { // side row
+            System.out.print(x+"    ");
+            for (int y=1; y<= maxgridnum; y++) {   //even/odd/space conditions
+                if (y%x==0 && y%2==0){
+                    System.out.print("E    ");
+                }
+                else if (y%x==0){
+                    System.out.print("O    ");            
+                }                
+                else {
+                    System.out.print("     ");
+                }
+            }
+            System.out.println();    
+        }
+        }
+}
