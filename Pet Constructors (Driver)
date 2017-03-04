@@ -1,0 +1,41 @@
+/*
+Name: Fuat Klobocista
+Description: Class for basic pet data: name, age, and weight.
+*/
+public class PetConstructorsDriver
+{
+	public static void main(String[] args)
+	{
+
+		//initialize a new PetContructors object and set its values  - PART 1
+		PetConstructors snoopy = new PetConstructors();
+		snoopy.name = "Snoopy";
+		snoopy.age = 8;
+		snoopy.weight = 8.0;
+		System.out.println("Section 1 Output:");
+		snoopy.writeOutput();
+
+		//condense to 2 lines of code using the constructor   - PART 2
+		PetConstructors snoopy2 = new PetConstructors("Snoopy2", 10, 10.0); 
+		System.out.println("Section 2 Output:");
+		snoopy2.writeOutput();            // multiple data fills up all zones
+
+		//Part 3
+		PetConstructors fido1 = new PetConstructors("Fido1");  // string goes into name
+		System.out.println("Section 3, name only:");
+		fido1.writeOutput();
+		System.out.println();
+
+		PetConstructors fido2 = new PetConstructors(4);  // just a single digit goes into age
+		System.out.println("Section 3, age only:");
+		fido2.writeOutput();
+		System.out.println();
+
+		PetConstructors fido3 = new PetConstructors(5.0);  // 0.0 info goes into weight 
+		System.out.println("Section 3, weight only:");
+		fido3.writeOutput();
+		System.out.println();
+
+		
+	}
+}
