@@ -1,0 +1,31 @@
+/* 
+Name: FUAT KLOBOCISTA
+Description: Keep track of the sales of an item
+*/
+public class InventorySalesDriver
+{
+	public static void main(String[] args)
+	{
+		// set the arguements to go through the default constuctor through new*
+		//Arguement structure in order
+/* String setNameOfItem, int setNumberSold, int setTotalInventory, double setTotalSalesAmount, double setItemPrice,
+ *  double setDiscount*/
+     
+		InventorySales bananas= new InventorySales("bananas", 5, 5, 0.00, 2.50, 0.00); 
+				// input data into correct positions
+		    bananas.writeOutput(); // call method to display final output
+				System.out.println();
+        
+				InventorySales oranges = new InventorySales("oranges", 3, 5, 0.00, 1.00, 0.32);  //repeat and test different inputs
+				oranges.writeOutput();
+				System.out.println();
+
+				InventorySales apples = new InventorySales("apples", 16, 15, 14.50, 0.74, 0.07); 
+				apples.writeOutput();						
+				System.out.println();
+				//total sales amount (14.50) is how much $ you already made 
+				// sales is unsuccessful cause you don't have enough to sell
+
+			}
+}
+
