@@ -1,0 +1,108 @@
+/* 
+Name: FUAT KLOBOCISTA
+Description: Keep track of the sales of an item
+*/
+
+public class InventorySales
+{
+	
+    //PART 1 ----------------------------CONSTRUCTORS--------------------------------
+    public String nameofitem;
+    public int numbersold; 
+    public int totalinventory;            //variables for assignment 
+    public double totalsalesamount;       // double works better because sales amount is money
+    public double itemprice;
+    public double discount; // as a percentage
+
+    public InventorySales ()   // default constructor
+    {
+    	nameofitem = "No item name";   //method sets values to variables
+        numbersold = 0;
+        totalinventory = 0;            
+        totalsalesamount = 0.00;      // very useful to understand 
+        itemprice = 0.00;             // need a method that assigns values from a test demo 
+        discount = 0.00;
+    }
+     //---------------------------Method-that-iniltializes-all-variables----------------------------
+    public InventorySales (String setNameOfItem, int setNumberSold, int setTotalInventory, double setTotalSalesAmount, 
+            double setItemPrice, double setDiscount)   
+    {
+    	if ((setNumberSold < 0) || (setTotalInventory < 0) || (setTotalSalesAmount < 0.00) ||
+              (setItemPrice < 0.00) || (setDiscount < 0.00))          // numbers should be greater than 0
+        {
+            System.out.println ("Error, invalid entry");			  // if not then exit
+            System.exit (0);
+        }
+    	else 
+    	{
+    		nameofitem = setNameOfItem;                         // if its greater than assign variables to arguments
+            numbersold = setNumberSold;
+            totalinventory = setTotalInventory;
+            totalsalesamount = setTotalSalesAmount;
+            itemprice = setItemPrice;
+            discount = setDiscount;
+    	}
+    }
+    
+    //PART 2 -------------WRITE-AN-OUTPUT-METHOD------------------------------------------
+    
+ public void writeOutput() 
+ 	{
+    	System.out.println("Creating Item: " + nameofitem + " and setting values."); // String/concatenate
+    	getCurrentPrice(itemprice, discount); 								// Call in method, have correct arguments 
+		System.out.print("Get current price: Current price of item is: $");
+		System.out.printf("%.2f",itemprice);                                  //use %.2f to limit decimals to 2 spaces
+		System.out.print("\nRegisterSale: ");							  
+		registerSale(numbersold);              
+		System.out.print("DisplaySales: ");     
+		displaySales(numbersold, totalsalesamount, discount);
+		
+    }
+    
+    //PART3-----------------------------------METHODS------------------------------------------------
+ 
+ public double getCurrentPrice (double setItemPrice, double setDiscount)
+ 	{
+ 		 itemprice = itemprice-(itemprice*discount);                 // update price with discount method
+ 		 														     // call in two doubles and return one
+ 	return (double) itemprice;
+	}
+    //------------------------------------------------------------------------------------------------
+    public void displaySales (int setNumberSold, double setTotalSalesAmount, double setDiscount) //pass arguments 
+    {
+    		System.out.print("Display Sold = " + numbersold + ", Total Sales = $");
+    		System.out.printf("%.2f",totalsalesamount);
+    		System.out.print(", Discount = " );                  //format this section and keep decimals to 2 places
+    		System.out.printf("%.2f",discount);					 // show sales for sold, total sales$, and discount
+    		System.out.print("(");
+    		System.out.printf("%.2f",discount*100);
+    		System.out.println("%)");     						 // void no return 
+    		
+    }
+    	
+    public void registerSale (int setNumberSold)
+    {														// first get the current price, then check inventory 
+    	if (setNumberSold < 0)								 // if you can sell, sell and reflect it in results
+        {													 // check value, can't sell negative, not logical
+            System.out.println ("Error, invalid entry");
+            System.exit (0);
+        }
+    	else
+    	{
+    		if (numbersold > totalinventory) 
+    		{							// if the number is high, don't go further and keep the sale amount the same
+    			System.out.println("Sale could not process because there is " + totalinventory + " items in inventory.");
+    			totalsalesamount = (totalsalesamount);
+    		}
+    		else 
+    		{							// if it is good(low) then you can sell, reflect it in total sales amount 
+    			System.out.println("Sale was successful!");
+    			totalsalesamount = (totalsalesamount + itemprice*numbersold);  //current price and amount sold + total
+    		}																   //updates total
+    	}	
+    		
+    }
+}
+   
+	
+    
