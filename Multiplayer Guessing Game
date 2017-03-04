@@ -1,0 +1,168 @@
+/*
+Name: Fuat Klobocista
+Description: Create a multi-player random number guessing game with our old code. 
+*/
+import java.util.Scanner;
+import java.util.Random;
+import java.util.ArrayList;
+
+public class MultiplayerGame {
+    static Scanner myScanner = new Scanner(System.in);
+    public static void main(String[] args) {
+        Startmenu();    
+    }
+        public static boolean Startmenu(){
+            System.out.print("Random Number Guessing Game (multiplayer)! Press Y to start / N to quit:");
+            Scanner scan = new Scanner(System.in);
+            String start = scan.next();
+            
+            if (start.charAt(0) == 'y' || start.charAt(0) == 'Y') {
+                System.out.println();   
+                game123();
+                
+            } else if (start.charAt(0) == 'n' || start.charAt(0) == 'N' ){
+                System.out.println("Good Bye! Go play your call of duty");
+            }
+                else {
+                  System.out.println("You entered an invalid input. "); 
+                  return Startmenu();                
+                }
+       return false;
+            }        
+        
+        public static int InputNumPlayer(int TotalPlayers){    
+            do{
+                System.out.print("Input how many users want to play: \n");
+                TotalPlayers = TryCatch(TotalPlayers);
+                
+                if (TotalPlayers <= 0){
+                    System.out.println("Sorry you need to have at least 1 person to start this game");
+                }
+            } while (TotalPlayers <=0 == true);
+                System.out.println("Total number of players is " + TotalPlayers + "\n ----------Get-Ready---------- \n");
+                        
+                return TotalPlayers;    
+        }    
+        
+        // Minimum and Maximum Limits
+        
+        public static int MaxLimit(int MaxInteger, int MinInteger) {            
+            do {
+                System.out.print("Enter a Maximum Number Limit: ");
+                MaxInteger = TryCatch(MaxInteger);
+                   if ((MinInteger >= MaxInteger) == true){
+                       
+                   System.out.println("Your minimum is greater than your maximum... please use logic and try again ");
+                   }
+            } while (MinInteger >= MaxInteger == true ); 
+                
+                return MaxInteger;
+    }    
+        
+        public static int MinLimit(int MinInteger) {
+                System.out.print("Enter a Minimum Number Limit: ");
+                MinInteger = TryCatch(MinInteger);                 
+                return MinInteger;
+            } 
+            
+        public static void game123(){
+        
+        int PlayerNumber = 0;
+        int GuessNumber = 0;    
+        do{ 
+            int MinNumber = 0;
+            int MaxNumber = 0;
+            int randNumber = 0;
+            Random r = new Random();
+            
+            
+            int [] ThePlayers = new int [InputNumPlayer(PlayerNumber)];
+            PlayerNumber = ThePlayers.length;
+            int [] RandomPlayerNum = new int [PlayerNumber];
+            int [] GuessInt = new int [PlayerNumber];
+            int a = 1;
+            
+            for(int i = 0; i <PlayerNumber; i++){    
+                
+                System.out.println("(Player " + (i + 1) + "'s turn to pick)");                
+                System.out.print("Player " + (i + 1) + " ");            
+                MinNumber = MinLimit(MinNumber);            
+                
+                System.out.print("Player " + (i + 1) + " ");                
+                MaxNumber = MaxLimit(MaxNumber,MinNumber);
+                
+                System.out.println("\nPlayer " + (i + 1) + " Guess a number between your Minimum Limit of " + MinNumber +" and your Maximum limit of " + MaxNumber);
+                RandomPlayerNum[i] = r.nextInt(MaxNumber + 1 - MinNumber) + MinNumber;
+                                            
+                System.out.println("___________________________________ \n");
+            }
+                    
+            do{ 
+                for(int i = 0; i < PlayerNumber; i++){
+                    ArrayList<String> RankPlayer = new ArrayList<String>(PlayerNumber);
+                    System.out.println("It is Player " + (i+1) + "'s turn to guess");
+                    System.out.print("Guess what the number is: ");
+                    GuessInt [i] = TryCatch(GuessNumber);
+                    GuessNumber = GuessInt [i];
+                    randNumber = RandomPlayerNum[i];
+                                        
+         if (GuessInt [i] > RandomPlayerNum[i]){
+                        ThePlayers[i] = a;
+                        a++;
+                        System.out.println("Your Number is too high, try again next turn\n");
+                    } else if (GuessInt [i] < RandomPlayerNum[i])    {
+                        ThePlayers[i] = a;
+                        a++;
+                        System.out.println("Your Number is too low, try again next turn\n");
+                    } else if (GuessInt [i] == RandomPlayerNum[i])   {
+                        System.out.println("You guessed correctly");
+                        System.out.println("___________________________________ \n");
+                        
+                    }
+                }
+            } while (GuessNumber != randNumber);
+            
+            
+        for(int i = 0; i < PlayerNumber; i++){
+            System.out.println("Player " + (i+1) + ": | "+ (ThePlayers[i]+1) + " Guesses" + " | " + (ThePlayers[i])+ " Incorrect Guesses");
+        }
+
+        } while (resetgame());            
+    }    
+        
+    public static int TryCatch(int EnteredValue){
+        boolean numberError = false;
+        String enteredString = "";        
+            do {
+                try {
+                    enteredString = myScanner.next();  
+                    EnteredValue = Integer.parseInt(enteredString.trim()); 
+                    numberError = false;  
+                    } catch(Exception e) {
+                        System.out.print("Your input you entered: " + enteredString + " is not valid, try again ");
+                        numberError = true; 
+                }        
+            } while (numberError == true ); 
+                return EnteredValue;
+            } 
+
+// Reset the entire game
+    
+    public static boolean resetgame(){
+        while (true) {                
+            System.out.println("Do you want to play again? Type Y or N: ");
+
+            Scanner scan = new Scanner(System.in);
+            String reset = scan.next();
+
+            if (reset.charAt(0) == 'y' || reset.charAt(0) == 'Y') {                    
+                System.out.println("*Random number has been reset for everyone* \n");
+                game123();
+            } else if (reset.charAt(0) == 'n' || reset.charAt(0) == 'N'){
+                System.out.println("Good Bye & Thank You for Playing!");
+                break;
+            }
+        }
+        return false;
+        }        
+    }
