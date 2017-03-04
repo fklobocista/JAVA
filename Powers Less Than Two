@@ -8,14 +8,12 @@ public class PoweresLessThanTwo {
 	public static void main(String[] args) {
 		
 
-		 int number;
+		int number;
 	        System.out.println("Enter a number: ");
 	        Scanner keyboard = new Scanner (System.in);
 	        number = keyboard.nextInt ();
 	        double count = (.5);
-	        
-	        
-	       
+	        	      	       
 	        while ( (count*2) < number)
 	        {
 	        	
