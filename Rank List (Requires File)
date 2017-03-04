@@ -1,6 +1,6 @@
 /*
 Name: Fuat Klobocista, 
-Description: Rank List
+Description: Rank List  (Please enter the full file extension Ex: textfile.txt on your desktop.
 */
 import java.io.*;
 import java.util.*;
@@ -10,7 +10,7 @@ public class RankList {
 		do {
 			ArrayList<String> myFileLines = new ArrayList<String>();//ArrayList to hold file contents
 			System.out.print("Please enter the file name you're looking for: ");
-			String filePath = ("/Users/fuboo/Desktop/");//Change your filepath here
+			String filePath = ("/Users/fuat/Desktop/");//Change your filepath here
 			fileCheck(myFileLines, filePath); //Asks for file name and checks if file exists
 			addMethod(myFileLines);//Add strings
 			deleteMethod(myFileLines);//Delete strings
@@ -292,4 +292,3 @@ public class RankList {
 				return false;
 		}
 	}
-}
