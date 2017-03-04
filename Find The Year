@@ -1,0 +1,23 @@
+/*
+Name: Fuat Klobocista
+Description: Find what year it will be at your desired age. 
+*/
+import java.util.*;
+public class FindTheYear {
+
+	public static void main(String[] args) {
+		
+		System.out.println("Please input your birth year: ");
+		Scanner scan = new Scanner(System.in);
+		int birthYear = scan.nextInt();
+		
+		System.out.println("Please input how old you will be (0-your expected life-time): ");
+		Scanner input = new Scanner(System.in);
+		int desiredYear = input.nextInt();
+		
+		int outputYear = (desiredYear + birthYear);
+		System.out.print("You will be " + desiredYear + ", in the year " + outputYear );
+     
+	}
+
+}
