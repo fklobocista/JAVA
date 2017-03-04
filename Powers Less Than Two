@@ -1,0 +1,28 @@
+/*
+Name: Fuat Klobocista
+Description: Powers less than 2
+*/
+import java.util.Scanner;
+public class PoweresLessThanTwo {
+
+	public static void main(String[] args) {
+		
+
+		 int number;
+	        System.out.println("Enter a number: ");
+	        Scanner keyboard = new Scanner (System.in);
+	        number = keyboard.nextInt ();
+	        double count = (.5);
+	        
+	        
+	       
+	        while ( (count*2) < number)
+	        {
+	        	
+	        count = count*2;
+	            System.out.print((int)count + " ");
+	        }
+	        
+	    }
+	}
+		
