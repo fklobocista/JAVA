@@ -1,0 +1,32 @@
+/*
+Name: Fuat Klobocista
+Description: Try Catch
+*/
+import java.util.*;
+public class TryCatch {
+
+	public static void main(String[] args) {
+		int enteredNumber = 0;
+		Scanner myScanner = new Scanner(System.in);
+		boolean numberError = false;
+		String enteredString = "";
+
+	do {
+		try {
+			System.out.print("Please enter an integer: ");
+			enteredString = myScanner.next();  //Read into string
+			enteredNumber = Integer.parseInt(enteredString.trim());  //cast as an integer
+			numberError = false;  //if we haven't failed yet thenthe number must be valid.
+		} catch(Exception e) {
+			System.out.println("Your entry: \"" + enteredString + "\" is invalid...Please try again");
+			numberError = true;  
+		}
+	
+	} while (numberError == true );  //Keep asking the user until the correct number is entered.
+
+		
+		System.out.println("\nThat was a valid Number.");
+		System.out.println("You entered " + enteredNumber + "!");
+
+	}
+}
