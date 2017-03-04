@@ -1,0 +1,40 @@
+/*
+Name: Fuat Klobocista
+Description: Buffered Reader
+*/
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+
+public class BufferedReader {
+
+	public static void main(String[] args) {
+
+		BufferedReader reader = null;
+
+		try {
+
+			String sCurrentLine; 
+
+			reader = new BufferedReader(new FileReader("C:\\Users\\fuat\\Desktop\\examplefile.txt"));
+
+			while ((sCurrentLine = reader.readLine()) != null) {
+				System.out.println(sCurrentLine);
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.print(e.getMessage());
+		} finally {
+			try {
+
+				if (reader != null)reader.close();
+			} catch (IOException ex) {
+				System.out.println(ex.getMessage());
+				ex.printStackTrace();
+
+			}
+		}
+	}
+}
