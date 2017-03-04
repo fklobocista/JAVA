@@ -1,0 +1,102 @@
+/*
+Name: Fuat Klobocista
+Description: Military Time Conversion
+*/
+import java.util.*;
+public class TimeConversion {
+	static {
+		
+	System.out.println("Welcome to Fuat's clock program");   // static intro, so I can recall main over again 
+	}
+	public static void main (String[]args){
+
+		System.out.println("\nPlease enter a time in the correct format (HH:MM):"); // start program
+		Scanner scan = new Scanner(System.in);
+
+		String userInput = scan.nextLine();  // enter time and store string
+
+
+		String string = userInput;   
+		if (userInput.contains(":")){  // set variables for all items to be used
+
+			String[] parts = string.split(":");
+			String hour = parts[0];     // split string from : 
+			String minute = parts[1];
+			String tryAgain = "";
+
+			try{
+
+				int hr = Integer.parseInt(hour);    
+				int min = Integer.parseInt(minute);  // convert separated strings into int
+
+
+				if (hr >=1 && hr <=11 && min >=0 && min <=59){   // AM times
+					System.out.print("\nconverted time: " + hr + ":" + min +  " AM");
+					if (anotherRound(tryAgain) ==  true){  // Try another time
+						main(args);
+					}
+					else{
+						System.out.print("Good Bye!");	  //Exit program
+
+					}
+				}
+				else if(hr <=24 && hr >=13 && min >=0 && min <=59 ) {  // PM times
+					hr = hr-12;
+					System.out.print("\nconverted time: " + hr + ":" + min + " PM");      
+					if (anotherRound(tryAgain) ==  true){   //Try another time
+						main(args);
+					}
+					else{
+						System.out.print("Good Bye!");	 //Exit
+
+					}
+				}
+				else if(hr == 12 && min >=0 && min <=59 ) {  // 12 PM exception
+					System.out.print("\nconverted time: " + hr + ":" + min + " PM");      
+					if (anotherRound(tryAgain) ==  true){   //Try another time
+						main(args);
+					}
+					else{
+						System.out.print("Good Bye!");	 //Exit
+
+					}
+				}
+				else if(hr == 0 && min >=0 && min <=59 ) {  // 12 AM exception
+					hr = hr + 12;
+					System.out.print("\nconverted time: " + hr + ":" + min + " AM");      
+					if (anotherRound(tryAgain) ==  true){   //Try another time
+						main(args);
+					}
+					else{
+						System.out.print("Good Bye!");	 //Exit
+
+					}
+				}
+				else {
+					System.out.print("You entered a time that doesn't exist!");  // If any other number is entered out of range, try again
+					main(args);
+				}
+
+			}catch (Exception e) {
+				System.out.print("Your entry is invalid...\nPlease enter a valid integer: ");
+				main(args);  // exception if there is an error such as entering a string into something that needs string but is turned to int
+			}
+		}
+		else {
+			System.out.println("You entered an invalid response. Please enter a time in the correct format HH:MM");
+			main(args);    //give format and try again if user does something wrong
+		}
+	}
+	public static boolean anotherRound(String askUser) {
+		Scanner myScanner = new Scanner (System.in);     	// asks user to try again
+		while (true) {
+			String userAnswer;
+			System.out.println("\n"+askUser + "\nWould you like to try another time?(Yes or No): ");
+			userAnswer = myScanner.next();
+			if (userAnswer.equalsIgnoreCase("Yes")) 
+				return true;
+			else if (userAnswer.equalsIgnoreCase("No"))
+				return false;
+		}
+	}
+}
