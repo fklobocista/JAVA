@@ -7,12 +7,10 @@ public class FibonacciSequence {
 
     public static void main(String[] args) {  
     	
-    System.out.println("Please enter a limit that you want to see:");
+   		System.out.println("Please enter a limit that you want to see:");
 		Scanner input = new Scanner(System.in);
 		int inputNumber = input.nextInt();
-    	
-    	
-    	
+		
          int x =1;
          int y=1;
          int z=(x+y);
