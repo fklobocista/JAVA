@@ -1,0 +1,111 @@
+/*
+Name: Fuat Klobocista
+Description: A program that reads a file, verifies it, 
+and search/report on information regarding the string.
+*/
+import java.io.*;
+import java.util.*;
+
+public class ReaderandVerifier{
+
+	public static String Verify()
+	{
+		Boolean locateFile= false;
+		String myFile= "";
+		Scanner inputfile = new Scanner(System.in); 
+		System.out.println("Input the directory of where your file is located:  "); 
+		do
+			{
+				myFile= inputfile.next(); 
+				File verifyFile= new File(myFile);						
+				if(verifyFile.exists())
+				{
+					locateFile= true;
+				}
+        else
+        {
+            System.out.println("Error. The file directory you have entered may be invalid or missing. \nEnter a valid directory:  ");
+        }
+		}
+		while(locateFile != true);
+		
+        System.out.println(myFile + " has been located" + "\n");       
+        return myFile;		
+	}	
+	public static void main(String[] args)	
+			throws IOException
+	{				
+		boolean search1= false;
+		{			
+		int totalLines = 0; 	
+		int occurrence = 0;   	
+		String[] txtfile = Arraylist(Verify());
+		System.out.println("Input the text or word you want to search for: "); 
+        Scanner user = new Scanner(System.in);      
+        String inputString = user.next();
+        
+        for (int i= 0; i< txtfile.length; i++) 
+        {
+        	if(lineElement(txtfile[i], inputString) == true) 
+        	{
+        		totalLines++;
+        	}
+        	occurrence = OccurenceMethod(txtfile[i],inputString) + occurrence;  
+        }     
+        System.out.println(inputString+" exists in " + totalLines + " lines & " + inputString+" occures in " + occurrence + " instances" + "\n");
+           
+        while (true) {	             
+            System.out.println("Do you want to try again? Type Y or N: ");
+            Scanner scan = new Scanner(System.in);
+            String reset = scan.next();
+
+            if (reset.charAt(0) == 'y' || reset.charAt(0) == 'Y') {	            	
+                System.out.println("Search again \n");
+                main(args);
+            } else if (reset.charAt(0) == 'n' || reset.charAt(0) == 'N'){
+                System.out.println("Good Bye & Thank You for using my file searching program!");
+                break;
+                                          
+                }           
+                }      
+            }		
+        }
+	public static String[] Arraylist(String myFile) 
+			throws IOException
+		{
+	        FileReader userfile = new FileReader(myFile); 
+	        BufferedReader buffer = new BufferedReader(userfile); 
+	        ArrayList<String> Element = new ArrayList<String>(); 
+			String txt = "";
+	        
+	        while ((txt= buffer.readLine()) != null) 
+	        
+	        Element.add(txt);
+	        String[] txtpos = new String [Element.size()];
+	        Element.toArray(txtpos);
+	        return txtpos;
+		}
+	
+	public static int OccurenceMethod(String input, String line) 
+		{
+		    int occurrence = 0;
+		    int lineLength = input.toUpperCase().length();
+	        int nolineLength = input.toUpperCase().replace(line.toUpperCase(),"").length();
+		    if (input.toUpperCase().contains(line.toUpperCase())) 
+		    	
+		     {      
+		        occurrence= ((lineLength-nolineLength)/line.length());         
+		     }
+
+		    return occurrence;
+		   }
+	
+	public static boolean lineElement(String element, String inputString) 
+	  {
+		if (element.toLowerCase().indexOf(inputString.toLowerCase()) != -1 )
+		{
+		return true; 
+		}
+		return false;
+	  }
+	}
