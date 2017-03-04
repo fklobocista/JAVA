@@ -1,0 +1,295 @@
+/*
+Name: Fuat Klobocista, 
+Description: Rank List
+ */
+import java.io.*;
+import java.util.*;
+
+public class RankList {
+	public static void main(String[] args) {
+		do {
+			ArrayList<String> myFileLines = new ArrayList<String>();//ArrayList to hold file contents
+			System.out.print("Please enter the file name you're looking for: ");
+			String filePath = ("/Users/fuboo/Desktop/");//Change your filepath here
+			fileCheck(myFileLines, filePath); //Asks for file name and checks if file exists
+			addMethod(myFileLines);//Add strings
+			deleteMethod(myFileLines);//Delete strings
+			String[] finalarray = new String[myFileLines.size()];//the Array to hold the rankings
+			rankComment(myFileLines, finalarray); //Rank, comment, and shift happens here
+			writeOutput(finalarray, filePath); //Saves the rank/comments
+		} while (anotherRound("Would you like to rank another file?")); // If "yes", start from the beginning again
+		System.out.println("\nThank you for your time!\nHave a great day!"); //End
+	}
+
+	// ---------------------------------------User string input---------------------------------------
+	public static String userInput(String fileStr) {
+		Scanner inVar= new Scanner(System.in);
+		fileStr = inVar.nextLine();
+		return fileStr; //Sends back an inputed string
+	}
+	// ---------------------------------------User integers input-------------------------------------
+	public static int numberInput(int checkedNumber) {
+		Scanner myScanner = new Scanner(System.in);
+		boolean numberError = false;
+		String enteredString = "";
+		do {
+			try {
+				enteredString = myScanner.nextLine(); //try to see if the number is an integer
+				checkedNumber = Integer.parseInt(enteredString.trim());
+				numberError = false;
+			} catch (Exception e) {
+				System.out.print("Your entry: \"" + enteredString + "\" is invalid...\nPlease enter a valid integer: ");
+				numberError = true;  //if it's false, you have to enter a number that is valid
+			}
+		} while (numberError == true);
+		return checkedNumber; //Throws back the given validated integer
+	}
+
+	// ---------------------------------------PRINT-CURRENT-ARRAY-------------------------------------
+	private static void printArray(ArrayList<String> myFileLines) {
+		int count = 0;
+		System.out.println("\nHere are the current rankings of your file contents: \n ");
+		for(int i = 0; i < myFileLines.size(); i++) {  //Goes through the entire ArrayList and prints out the element
+			count++;
+			System.out.println("Rank "+ count + ": " + myFileLines.get(i));  // posts the current array after either adding/deleting
+		}
+	}
+	//----------------------------------------ADD-METHOD-----------------------------------------------
+	private static ArrayList<String> addMethod(ArrayList<String> myFileLines) {
+		if (anotherRound("Would you like to add anything?") == true) { //Ask user if they want to add. If yes, go through the addMethod. If no, go to the next method in the main.
+			do{
+				System.out.print("Please enter what you would like to add: ");
+				String inText = userInput("new element"); 		//User's input is cast into a string
+				myFileLines.add(inText); 						//String is put inside element
+				System.out.println("'"+inText+"'" + " has been added.");
+			} while (anotherRound("Would you like to add anything else?"));       	 //Repeat the addMethod until satisfied
+		} printArray(myFileLines);								//Prints out the rankings
+		return myFileLines; 									//Returns the update ArrayList back into the main
+	}
+
+	// ---------------------------------------DELETE-METHOD--------------------------------------------
+	private static ArrayList<String> deleteMethod(ArrayList<String> myFileLines) {
+		int rowNumber = 0;   //This will be the desired rank/row to be deleted.
+		int errorBounds = 0; //if errorBounds == 1, stay in the loop
+		int testCatch = (myFileLines.size()); // Makes sure we do not go less than 1 in the ArrayList
+		if (anotherRound("Would you like to delete anything?") == true) { //asks for a row number that user would like to delete
+			do{
+				do{
+					errorBounds = 0; //re-initializes the ints on each iteration to keep functionality the same 
+					rowNumber = 0; 
+					System.out.print("Please enter the rank number that you would like to delete: "); //if 
+					rowNumber =	numberInput(rowNumber)-1; //(input-1) = the exact location of the element that will be deleted
+					testCatch--; //Keeps track of where we are in the ArrayList
+					if(rowNumber < 0 || rowNumber >= myFileLines.size() || testCatch == 0) { // if you try to delete something not in the limit retry.
+						System.out.println("-------GAME OVER-------\nYOU CAN'T DELETE SOMETHING THAT DOESN'T EXIST, WE WILL HAVE TO RESTART\n------------------");
+						errorBounds = 1;//Changes to 1 and makes sure we stay within the loop so we don't break anything
+						main(null); //Restarts the game over again because element is empty
+					} else { // If everything is fine then continue here.
+						for (int i = 0; i < myFileLines.size(); i++) { 	//search for element and delete.
+							if (i == rowNumber) { //Locates and deletes the element
+								System.out.println("'" + myFileLines.get(i) + "'" + " was removed!");  //checks within the bounds and if its in there it deletes that statement
+								myFileLines.remove(i);
+							}
+						} if (testCatch ==0){ //if we hit 0 in the Array, do nothing. This is helpful when we reach element 0 aka when the user types "1"
+						}
+						printArray(myFileLines); // Prints the Arraylist contents to show the user what's in it
+					}
+				}while(errorBounds == 1); // Makes sure we stay within the loop if something is not valid
+			} while(anotherRound("Do you want to delete anything else?")); //Asks if they want to delete anything else
+			printArray(myFileLines); // Prints the Arraylist contents to show the user what's in it
+		} return myFileLines; //Return the updated ArrayList
+	}
+
+	// ---------------------------------------VALIDATE-FILE-------------------------------------------
+	public static ArrayList<String> fileCheck(ArrayList<String> myFileLines, String filePath) {
+		BufferedReader reader = null;
+		boolean fileError = false;
+		do {
+			try {
+				String sCurrentLine;
+				reader = new BufferedReader(new FileReader( filePath + userInput("filename"))); //Takes the path in the main + the user's input for filename together and validates
+				System.out.println("Here are the contents of your .txt file: \n ");
+				while ((sCurrentLine = reader.readLine()) != null) { //if nothing is broken, go through line by line to print and store into the ArrayList
+					fileError = false;
+					int count;
+					for(count = 1; count <= myFileLines.size();count++){}
+					System.out.println("Rank " + count + ": " + sCurrentLine); //  displays current elements within the array list from the document
+					myFileLines.add(sCurrentLine);
+				}
+			} catch (IOException e) {
+				fileError = true;
+				// e.printStackTrace(); //not sure what this does...works fine without it
+				System.err.println("\n" + e.getMessage() + "\nPlease reenter your filename: ");
+			} finally {
+				try {
+					if (reader != null)
+						reader.close();
+				} catch (IOException ex) {
+					// System.out.println(ex.getMessage());
+					ex.printStackTrace();
+				}
+			}
+		} while (fileError == true);
+		return myFileLines;
+	}
+
+	// ---------------------------------------RANKING/COMMENTING--------------------------
+	public static String[] rankComment(ArrayList<String> myFileLines, String[] finalarray) {
+		do {
+			int rank = 0; //user's input
+			for (int i = 0; i < myFileLines.size(); i++) { //Goes through the file element by element and does something to it
+				System.out.print("\nPlease enter the rank you want for " + "'"+ myFileLines.get(i)+ "'" + ": ");
+				rank = boundLimit(1, myFileLines.size()); //sets up the range of what rank inputs are valid
+				rank = rank-1;		// Input matches the ArrayList
+				System.out.print("\nPlease enter a comment that you would like to add: "); // enter the rank you want for that element,check if it is within the bounds, store it
+				String comment= userInput("comment");
+				String tempElement = myFileLines.get(i) +" | "+ comment; // add the comment to that element as well
+				if(checkRank(rank, finalarray)== false){ //// check if the rank is available, if it is, store it in that position
+					finalarray[(rank)] = tempElement;
+					printFinalArray(finalarray, "");
+				}
+				else {
+					int w = 0;
+					if ((w = checkNull(rank, finalarray)) != -1){ //Checks Down the Array and finds the null locations if the return from checkNull is -1
+						shiftDown(rank,finalarray, w); //Shifts stuff
+						System.out.println("Rank # of '"+ tempElement+ "' is in use and will be pushed down.");
+						finalarray[(rank)] = tempElement;	//put rank/comments into the finalArray
+						printFinalArray(finalarray, "");
+					}
+					else if((w = checkNullUp(rank, finalarray)) != -1){ //Checks Up the Array and finds the null locations if the return from checkNullUp is -1
+						shiftUp(rank,finalarray, w); //Shifts stuff
+						System.out.println("Rank # of '"+ tempElement+ "' is in use and will be pushed up.");
+						finalarray[(rank)] = tempElement; //put rank/comments into the finalArray
+						printFinalArray(finalarray, "");
+					}
+				}
+			}
+			printFinalArray(finalarray, "\n---------------------------\nHere is the final ranking of your list:\n"); //Prints final contents of Array
+		} while (anotherRound("Do you want to make any changes to the ranking and comments?")); //If yes, restart the ranking and comment all over again.
+		return finalarray; //Return Array back to the main
+	}
+	//--------------------------------------------PRINT-ARRAY-CONTENTS---------------------------------------
+	public static String[] printFinalArray(String[]finalarray, String userDisplay) {
+		int count = 0;
+		System.out.println(userDisplay);
+		for (int i =0; i < finalarray.length; i++) { //Prints the finalArray contents
+			count ++;
+			System.out.println("Rank:"+ count + " " + finalarray[i]);
+		} return finalarray;
+	}
+
+	//--------------------------------------------CHECK-DOWN-METHOD------------------------------------------
+	public static int checkNull(int Rank,String[] finalarray){ // check every element (bottom half from rank) of the array return the null index (i), or if there is no null (-1)
+		for (int i= Rank; i<finalarray.length; i++){ //Goes down the Array
+			if (finalarray[i]==null){ //If a null is found in an element, return the location of it
+				return i; 
+			}
+		}
+		return -1; //if null is found
+	}
+
+	//--------------------------------------------CHECK-UP-METHOD------------------------------------------
+	public static int checkNullUp(int Rank,String[] finalarray){  // check every element (top half from rank) of the array return the null index (i), or if there is no null (-1)
+		for (int i= Rank; i>=0; i--){ //Goes up the Array
+			if (finalarray[i]==null){ //If a null is found in an element, return the location of it
+				return i; 
+			}
+		}
+		return -1; // if null is found
+	}
+
+	//----------------------------------------SHIFT-ALL-ELEMENTS-DOWN--------------------------------
+	public static String[] shiftDown(int rank, String[] tempArray, int nullIndex){ // go through the bottom half one index before the null and store the one before it into the null to shift down. 
+		for(int i=(nullIndex-1);i>=rank;i--){  // Finds location of null. and moves contents behind the null forward
+			tempArray[i+1] = tempArray[i];
+			if (i == rank){
+				tempArray[rank] = null;
+			}
+		}return tempArray; //Returns the updated Array
+	}
+
+	//----------------------------------------SHIFT-ALL-ELEMENTS-UP----------------------------------
+	public static String[] shiftUp(int rank, String[] tempArray, int nullIndex){ // go through the top half and stop one index after the null and store the one after it into the null to shift up
+		for(int i=(nullIndex+1);i<=rank;i++){ //Finds location of null. and moves contents in front of the null behind
+			tempArray[i-1] = tempArray[i];
+			if (i == rank){
+				tempArray[rank] = null;
+			}
+		}return tempArray; //Returns the updated Array
+	}
+
+	//----------------------------------------BOUND-LIMIT-RANK-METHOD---------------------------------
+	public static int boundLimit(int min, int max){ 
+		int boundCheck = 0;
+		int rank = 1;
+		int inputVar  = 0;
+		do{  
+			try{
+				boundCheck = 0;
+				inputVar = numberInput(rank); }  	// takes the next a single integer only ie. 10, 1, 4 and not: "10 902 103"
+			catch(Exception e){
+				System.out.println("Your input is invalid, please enter an integer for a rank: "); // takes the rank in, compares it to the limits
+				boundCheck = 1;
+			} if(inputVar < min || inputVar > max){
+				System.out.print("The rank you entered is not within the bounds, Try Again:");   // min is 0 since array index is 0  
+				boundCheck = 1; 		// check every element of the array return the null index (i), or if there is no null (-1)
+			} else {
+				rank = inputVar;
+			}
+
+		} while(boundCheck == 1); // if it is within the bounds, it is also an integer, then return it
+		return rank;
+	}
+
+	//---------------------------------------CHECK-RANK-METHOD----------------------------------------
+	public static boolean checkRank(int rank, String[] tempArray) {
+		int rankk = rank;
+		String[] Temp = tempArray;
+		boolean rankTaken = true;
+		if (Temp[rankk] == null) {	//Checks if rank is available in the new array
+			rankTaken = false; // if it's false it’s empty and you can store it
+		} else if (Temp[rankk] != null) {
+			rankTaken = true;  	// if it's true then that rank is taken *store somewhere else*
+		} return rankTaken;     	// returning true / false only so that you can use a result
+	}
+
+	// ------------------------------------OUTPUT-SAVE------------------------------------------------
+	public static void writeOutput(String[]finalarray, String filePath) {
+		try {
+			int test = 0;
+			do {
+				System.out.print("\nPlease type your desired file name: ");
+				File outfile = new File(filePath + userInput("filename"));				
+				if (!outfile.exists()) {
+					outfile.createNewFile();
+				} 
+				FileWriter fw = new FileWriter(outfile.getAbsoluteFile());//Open the file for writing
+				BufferedWriter bw = new BufferedWriter(fw);//BufferedWrite opens a buffer and flushes it
+				PrintWriter fileOut = new PrintWriter(bw);
+				for (int i = 0; i < finalarray.length; i++) { //Goes through the file element by element and does something to it
+					fileOut.println("|Rank:" + (i+1) +"|" + finalarray[i]); // MOST CURRENT RANKS APPREAR ON THE LEFT
+				}
+				bw.flush(); // Always a good habit to flush when you are through
+				bw.close();
+				fw.close();
+				System.out.println("\nYour ranking is saved as: " + outfile);
+			} while (test !=0);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// ------------------------------------Ask-for-Yes/No-METHOD--------------------------------------
+	public static boolean anotherRound(String askUser) {
+		Scanner myScanner = new Scanner (System.in);
+		while (true) {
+			String userAnswer; 
+			System.out.print("\n"+askUser + " (Type: Yes or No) ");
+			userAnswer = myScanner.nextLine();
+			if (userAnswer.equalsIgnoreCase("Yes"))
+				return true;
+			else if (userAnswer.equalsIgnoreCase("No"))
+				return false;
+		}
+	}
+}
