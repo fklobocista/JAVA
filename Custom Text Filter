@@ -1,0 +1,64 @@
+/* FUAT KLOBOCISTA
+  Write a program that filters words (bad words)
+*/
+
+import java.util.*;
+public class CustomTextFilter {
+	
+    public static void main(String[] args) {
+    	
+    	// Prompt User to enter a comment
+        System.out.println("Hello, Enter a comment:");
+    	Scanner scan=new Scanner(System.in);
+    	//Store that comment into a string
+        String comment=scan.nextLine();
+        // remove spaces from string to make things easier for contain (replace)
+        comment = comment.replaceAll("\\s+", "");
+        // convert string to lower case so that it is case insensitive
+        comment = comment.toLowerCase();
+		
+        // put bad words you want to look for in strings
+        String badword1 = "luck";
+        String badword2 = "shirt";
+        String badword3 = "itch";
+        
+        // If statement that uses contain to check the comment for existing bad words. 
+        if (comment.contains(badword1)) { 
+            System.out.println("Uh Oh watch your language! Found a bad word, your comment is not acceptable, try again \n");
+            // return back to main to start over
+            main(args);
+        } 
+        else if (comment.indexOf(badword2) != -1) {
+            System.out.println("Uh Oh watch your language! Found a bad word, your comment is not acceptable, try again \n");
+            main(args);
+        } 
+        else if (comment.indexOf(badword3) != -1) {
+            System.out.println("Uh Oh watch your language! Found a bad word, your comment is not acceptable, try again \n");
+            main(args);
+            }
+        // if it does not have any bad words, accept it and see if the user wants to try again or leave
+        else {
+            System.out.println("Acceptable & no bad words!");
+            
+            // ask user if they want to try again
+            System.out.println("Would you like to try again? Type yes or no ");
+            Scanner exit=new Scanner(System.in);
+            
+            /* get their answer and if it is yes reset the program for them to start again
+             case insensitive answer to check using container*/
+            String condition = exit.nextLine();
+            condition = condition.toLowerCase();
+            
+            // if statement to check if yes was answered or no
+            	if (condition.contains("yes")){
+            		System.out.print("*Resetting* \n");
+            	main(args);
+            	}
+            	//exit the program
+            	else if (condition.contains("no")) {
+            		System.out.print("Goodbye!");
+            	}
+        
+        }
+        }
+    }
