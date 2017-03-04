@@ -1,0 +1,106 @@
+/*
+Name: Fuat Klobocista
+Description: Class for basic pet data: name, age, and weight.
+*/
+public class PetConstructors
+{
+    
+    public String name;
+    public int age; //in years
+    public double weight; //in pounds
+
+    //Notice that it is setting values for the variables name, age, and weight
+    public PetConstructors ()   // default constructor
+    {
+        name = "No name yet.";
+        age = 0;
+        weight = 0;
+    }
+
+    public void writeOutput ()
+    {
+        System.out.println ("Name: " + name);
+        System.out.println ("Age: " + age + " years");
+        System.out.println ("Weight: " + weight + " pounds");
+    }
+    PetConstructors (String initialName, int initialAge,
+            double initialWeight)                  
+    {
+        name = initialName;
+        //checkWeight(initialWeight);
+        //checkAge(initialAge);
+        if ((initialAge < 0) || (initialWeight < 0))
+        {
+            System.out.println ("Error: Negative age or weight.");
+            System.exit (0);
+        }
+        else
+        {
+            age = initialAge;
+            weight = initialWeight;
+        }
+    }
+
+    //This method takes in a String and initializes the name of the pet
+    public PetConstructors (String initialName)
+    {
+        name = initialName;
+        age = 0;
+        weight = 0;
+        //this(initialName, 0, 0);
+    }
+
+    //This method takes in an int and initializes the age of the pet
+    public PetConstructors (int initialAge)
+    {
+        name = "No name yet.";
+        weight = 0;
+        //checkAge(initialAge);
+        if (initialAge < 0)
+        {
+            System.out.println ("Error: Negative age.");
+            System.exit (0);
+        }
+        else
+            age = initialAge;
+
+        //this("No name yet.", initialAge, 0);
+    }
+
+    //This method takes in a double and initializes the weight of the pet
+    public PetConstructors (double initialWeight)
+    {
+        name = "No name yet.";
+        age = 0;
+        //checkWeight(initialWeight);
+        if (initialWeight < 0)
+        {
+            System.out.println ("Error: Negative weight.");
+            System.exit (0);
+        }
+        else
+            weight = initialWeight;
+
+        //this("No name yet.", 0, initialWeight);
+    }
+
+    private void checkAge(int initialAge){
+        if (initialAge < 0)
+        {
+            System.out.println ("Error: Negative age.");
+            System.exit (0);
+        }
+        else
+            age = initialAge;
+    }
+
+    private void checkWeight(double initialWeight){
+        if (initialWeight < 0)
+        {
+            System.out.println ("Error: Negative weight.");
+            System.exit (0);
+        }
+        else
+            weight = initialWeight;
+    }
+}
