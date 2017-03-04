@@ -1,0 +1,85 @@
+/* 
+Name: FUAT KLOBOCISTA
+Description: Program that takes student names and their ID's and search for it
+ */
+import java.util.*;
+
+public class StudentIDDriver {
+
+	public static void main(String[] args) {
+		// Print an intro to the program
+		System.out.println("Welcome to the information management program");
+
+		//Ask how many students want to be entered 
+		//save that into an int number variable for the array
+		System.out.println("\nHow many students would you like to enter?");
+		Scanner scanner = new Scanner(System.in);
+		int numStudents = scanner.nextInt();
+
+		// initialize the array and use the previous variable to set size 
+		// set students with a for loop
+		student[] studentArray = new student[numStudents];
+		for(int i = 0; i < studentArray.length; i++){
+			studentArray[i] = new student();
+		}
+
+		//Ask the user to input the names of students on separate lines
+		//Store that string into the next index on the array after every instance entered 
+
+		System.out.println("Please enter names of students you want to enter on seperate lines: ");
+		for(int i = 0; i < studentArray.length; i++){
+			String enteredName= scanner.next();
+			studentArray[i].studentName = enteredName;
+		}
+
+		//Ask the user to input the ID's of students on separate lines
+		//Store that int into the next index on the array after every instance entered 
+		System.out.println("Next, enter the associated student IDs, one line at a time:");
+		for(int i = 0; i < studentArray.length; i++){
+			int enteredID = scanner.nextInt();
+			studentArray[i].StudentID = enteredID;
+		}
+
+		//Ask to search and create an answer
+		System.out.println("Would you like to search for a student? [Yes] or [No]");
+		String answer = scanner.next();
+
+		//If answered Yes then begin the search
+		//If answered No then do not begin the search and end program
+		//Ask for the student ID
+		//Do while so that it can keep searching if you keep entering Yes or yes
+		do {
+			if(answer.equals("Yes") || answer.equals("yes")){
+				System.out.println("\nEnter the student ID you want to lookup: ");
+				int id = scanner.nextInt();
+				//take that ID and use the findID method to search the array for it 
+				int index = student.findID(studentArray, id);
+				boolean foundIt = student.foundID(studentArray, id);
+
+				if(foundIt){ // if the index is an integer than use that to display name and ID
+		System.out.println("\nStudent Name: " + studentArray[index].studentName + " | Student ID: " + studentArray[index].StudentID);
+					System.out.print("\nWould you like to search again? [Yes] or [No]  ");
+					String reply = scanner.next();
+					//Ask if user wants to continue searching and if yes continue to keep answer as yes
+					//for the continuation of the while loop
+					//If you are done update answer with reply to no so that the while breaks and ends. 
+					if(reply.equals("Yes") || reply.equals("yes")){
+						answer = "yes";
+					}
+					else if (reply.equals("No") || reply.equals("no")){
+						answer = "no";
+						System.out.println("\nThank You & Good Bye");
+					}			
+				}
+				else{
+					System.out.println("\nStudent with that ID does not exist");
+					}
+			}
+			else{
+				System.out.println("\nThank You & Good Bye");  // terminate program
+				}
+		}while(answer.equals("Yes") || answer.equals("yes"));
+
+	}
+
+}
