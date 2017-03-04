@@ -1,5 +1,6 @@
-/* FUAT KLOBOCISTA
-  Write a program that filters words (bad words)
+/* 
+Name: FUAT KLOBOCISTA
+Description: Write a program that filters words (bad words)
 */
 
 import java.util.*;
