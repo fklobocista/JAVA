@@ -1,0 +1,37 @@
+/* 
+Name: FUAT KLOBOCISTA
+Description:  Program that takes student names and their ID's and search for it
+ */
+
+public class StudentID {
+	String studentName;
+	int StudentID;
+
+	public static int findID(StudentID[] list, int enteredID) {
+		int index = 0;
+		for(int i = 0; i < list.length; i++)
+		{
+			if (list[i].StudentID == enteredID){   //Search throughout the array for the ID and display index
+				index = i;
+			}
+			else {
+			} 
+		}
+		//After the method is done, it will return the index at which is was found in the array.
+		return index;
+	}
+
+	public static boolean foundID (StudentID[] list, int enteredID)
+	{
+		for(int i = 0; i < list.length; i++)
+			{
+			if(list[i].StudentID == enteredID)
+			{
+				return true;          // look to see if it is in there for true/false
+			}
+		}
+		return false;
+	}
+}
+
+
